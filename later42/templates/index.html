@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if not user.is_authenticated %}
+    {% include 'docs.html' %}
+    {% endif %}
+    {% for url in urls %}
+                    <!-- Post preview-->
+                    <div class="post-preview">
+                        <a href="{{ url.url }}">
+                            <h2 class="post-title">{{ url.title }}</h2>
+                        </a>
+                        <p class="post-meta">
+                            {{ url.url }}
+                        </p>
+                    </div>
+                    <!-- Divider-->
+                    <hr class="my-4" />
+    {% endfor %}
+{% endblock %}

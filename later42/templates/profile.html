@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Настройки{% endblock %}
+
+{% block content %}
+
+    <h2 class="center-block">Профиль</h2>
+
+    <p> </p>
+    <div class="container">
+      <div class="row align-items-start">
+        <div class="col">
+          Логин:
+        </div>
+        <div class="col">
+          {{ user.username }}
+        </div>
+      </div>
+      <div class="row align-items-start">
+        <div class="col">
+          Email:
+        </div>
+        <div class="col">
+          {{ user.email }}
+        </div>
+      </div>
+    </div>
+    <p> </p>
+    <div class="container">
+      <div class="row align-items-start">
+        <div class="col">
+          API ключ:
+        </div>
+        <div class="col">
+{% if token is not None %}
+            {{ token }}
+            <form action="{% url 'api_token' %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Сбросить на новый">
+            </form>
+{% else %}
+            <form action="{% url 'api_token' %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Создать">
+            </form>
+{% endif %}
+        </div>
+      </div>
+    </div>
+    <p></p>
+{% endblock %}

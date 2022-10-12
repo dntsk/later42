@@ -1,0 +1,37 @@
+import requests
+
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from bs4 import BeautifulSoup
+from later42.models.urls import URL as URLModel
+
+
+class URL(APIView):
+    def get_title(self, url):
+        try:
+            response = requests.get(url)
+            soup = BeautifulSoup(response.text, 'html.parser')
+            title = soup.find('title').text
+            return title
+        except AttributeError:
+            return None
+
+    def post(self, request, format=None):
+        url = request.GET.get('url')
+        if url:
+            title = self.get_title(url)
+            if title is None:
+                title = url
+            url = URLModel(url=url, title=title, user=request.user)
+            url.save()
+            return Response({'status': 'success'})
+        else:
+            return Response({'status': 'error'})
+
+    def delete(self, request, format=None):
+        id = request.GET.get('id')
+        if id:
+            URLModel.objects.filter(id=id).delete()
+            return Response({'status': 'success'})
+        else:
+            return Response({'status': 'error'})
