@@ -1,20 +1,30 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% if not user.is_authenticated %}
-    {% include 'docs.html' %}
-    {% endif %}
-    {% for url in urls %}
-                    <!-- Post preview-->
-                    <div class="post-preview">
-                        <a href="{{ url.url }}">
-                            <h2 class="post-title">{{ url.title }}</h2>
-                        </a>
-                        <p class="post-meta">
-                            {{ url.url }}
-                        </p>
+    {% if user.is_authenticated and urls|length > 0 %}
+        {% for url in urls %}
+            <!-- Post preview-->
+            <div class="post-preview">
+                <div class="d-flex justify-content-between">
+                    <div class="p-2">
+                        <a href="{{ url.url }}"><h2 class="post-title">{{ url.title }}</h2></a>
                     </div>
-                    <!-- Divider-->
-                    <hr class="my-4" />
-    {% endfor %}
+                    <div class="p-2">
+                        <a href="/delete/{{ url.id }}"><span class="fa-solid fa-trash"></span></a>
+                    </div>
+                </div>
+                <p class="post-meta">
+                    {{ url.url }}
+                </p>
+            </div>
+            <!-- Divider-->
+            <hr class="my-4" />
+        {% endfor %}
+    {% elif user.is_authenticated %}
+        <div class="post-preview">
+            <h2 class="post-title">У вас нет сохраненных ссылок</h2>
+        </div>
+    {% elif not user.is_authenticated %}
+        {% include 'docs.html' %}
+    {% endif %}
 {% endblock %}
