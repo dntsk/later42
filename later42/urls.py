@@ -22,7 +22,7 @@ from django.contrib.auth.views import LoginView
 from rest_framework import routers, serializers, viewsets
 
 from later42.forms import CustomLoginForm
-from later42.views import index, profile, api, api_token, signup
+from later42.views import index, profile, api, api_token, signup, about
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -45,9 +45,10 @@ urlpatterns = [
     path("accounts/login/", LoginView.as_view(authentication_form=CustomLoginForm), name="login"),
     path('accounts/', include('django_registration.backends.activation.urls')),
     path("accounts/", include("django.contrib.auth.urls")),
-    path('api/url/', api.URL.as_view(), name='urls'),
-    path('', index.get, name='index'),
-    path('delete/<int:url_id>', index.delete, name='delete'),
     path('profile/', profile.get, name='profile'),
+    path('api/url/', api.URL.as_view(), name='urls'),
+    path('delete/<int:url_id>', index.delete, name='delete'),
     path('api_token/', api_token.create, name='api_token'),
+    path('', index.get, name='index'),
+    path('about/', about.get, name='about'),
 ]

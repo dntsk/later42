@@ -36,12 +36,12 @@
             {{ token }}
             <form action="{% url 'api_token' %}" method="post">
                 {% csrf_token %}
-                <input type="submit" value="Сбросить на новый">
+                <input class="btn btn-primary text-uppercase" type="submit" id="resetbutton" value="Сбросить на новый">
             </form>
 {% else %}
             <form action="{% url 'api_token' %}" method="post">
                 {% csrf_token %}
-                <input type="submit" value="Создать">
+                <input class="btn btn-primary text-uppercase" type="submit" id="createbutton" value="Создать">
             </form>
 {% endif %}
         </div>
