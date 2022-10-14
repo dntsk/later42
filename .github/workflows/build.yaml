@@ -28,7 +28,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
-          images: dntsk/later42
+          images: dntskdev/later42
 
       - name: Build and push
         uses: docker/build-push-action@v3
