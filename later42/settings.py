@@ -25,8 +25,8 @@ SECRET_KEY = os.getenv('SECRET', 'django-insecure-c%g@wujt4dco#e%k-!25o3)0%t+wm5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False')
 
-ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['*']
+ALLOWED_HOSTS = ['*', os.getenv('DOMAIN')]
+CSRF_TRUSTED_ORIGINS = ['https://' + os.getenv('DOMAIN', 'localhost')]
 
 
 # Application definition
