@@ -43,7 +43,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('signup/', signup.register, name='signup'),
     path("accounts/login/", LoginView.as_view(authentication_form=CustomLoginForm), name="login"),
-    path('accounts/', include('django_registration.backends.activation.urls')),
     path("accounts/", include("django.contrib.auth.urls")),
     path('profile/', profile.get, name='profile'),
     path('api/url/', api.URL.as_view(), name='urls'),
