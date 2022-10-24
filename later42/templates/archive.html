@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="post-preview">
 {% if urls|length > 0 %}
 {% for url in urls %}
 <!-- Post preview-->
@@ -23,8 +24,25 @@
 <hr class="my-4" />
 {% endfor %}
 {% else %}
-<div class="post-preview">
     <h2 class="post-title">У вас нет ссылок в архиве</h2>
-</div>
 {% endif %}
+</div>
+<div class="pagination container row justify-content-end">
+    <div></div>
+    <div class="step-links col-auto">
+        {% if urls.has_previous %}
+        <a href="?page=1">&laquo;</a>
+        <a href="?page={{ urls.previous_page_number }}">&lsaquo;</a>
+        {% endif %}
+
+        <span class="current">
+            страница {{ urls.number }} из {{ urls.paginator.num_pages }}
+        </span>
+
+        {% if urls.has_next %}
+        <a href="?page={{ urls.next_page_number }}">&rsaquo;</a>
+        <a href="?page={{ urls.paginator.num_pages }}">&raquo;</a>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

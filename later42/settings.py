@@ -20,7 +20,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET', 'django-insecure-c%g@wujt4dco#e%k-!25o3)0%t+wm5=k%l(m!kk^p_g%kknod!')
+SECRET_KEY = os.getenv(
+    'SECRET', 'django-insecure-c%g@wujt4dco#e%k-!25o3)0%t+wm5=k%l(m!kk^p_g%kknod!')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False')
@@ -156,3 +157,5 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
 }
+
+URLS_PER_PAGE = 20
