@@ -31,7 +31,10 @@ class URL(APIView):
     def delete(self, request, format=None):
         id = request.GET.get('id')
         if id:
-            URLModel.objects.filter(id=id).delete()
+            url = URLModel.objects.filter(id=id).first()
+            if url:
+                url.archived = True
+                url.save()
             return Response({'status': 'success'})
         else:
             return Response({'status': 'error'})

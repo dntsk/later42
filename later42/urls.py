@@ -42,7 +42,8 @@ router.register(r'users', UserViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('signup/', signup.register, name='signup'),
-    path("accounts/login/", LoginView.as_view(authentication_form=CustomLoginForm), name="login"),
+    path("accounts/login/",
+         LoginView.as_view(authentication_form=CustomLoginForm), name="login"),
     path("accounts/", include("django.contrib.auth.urls")),
     path('profile/', profile.get, name='profile'),
     path('api/url/', api.URL.as_view(), name='urls'),
@@ -50,4 +51,7 @@ urlpatterns = [
     path('api_token/', api_token.create, name='api_token'),
     path('', index.get, name='index'),
     path('about/', about.get, name='about'),
+    path('archive/', index.archive, name='archive'),
+    path('archive/<int:url_id>', index.archive, name='archive_url'),
+
 ]

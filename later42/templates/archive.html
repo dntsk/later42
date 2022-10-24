@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if urls|length > 0 %}
+{% for url in urls %}
+<!-- Post preview-->
+<div class="post-preview">
+    <div class="d-flex justify-content-between">
+        <div class="p-2">
+            <a href="{{ url.url }}">
+                <h2 class="post-title">{{ url.title }}</h2>
+            </a>
+        </div>
+        <div class="p-2">
+            <a href="/delete/{{ url.id }}"><span class="fa-solid fa-trash"></span></a>
+        </div>
+    </div>
+    <p class="post-meta">
+        {{ url.url }}
+    </p>
+</div>
+<!-- Divider-->
+<hr class="my-4" />
+{% endfor %}
+{% else %}
+<div class="post-preview">
+    <h2 class="post-title">У вас нет ссылок в архиве</h2>
+</div>
+{% endif %}
+{% endblock %}

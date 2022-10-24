@@ -7,3 +7,4 @@ class URL(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     url = models.CharField(max_length=2000)
     title = models.CharField(max_length=2000)
+    archived = models.BooleanField(default=False)
