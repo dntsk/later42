@@ -162,8 +162,6 @@ URLS_PER_PAGE = 20
 READABILITY_HOST = os.getenv('READABILITY_HOST', None)
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-if DEBUG:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'False')
 EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp')
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', 'user')
