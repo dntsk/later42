@@ -7,12 +7,12 @@
             <div class="post-preview">
                 <div class="d-flex justify-content-between">
                     <div class="p-2">
-                        <a href="{{ url.url }}">
+                        <a href="{% url 'reader' url.id %}">
                             <h2 class="post-title">{{ url.title }}</h2>
                         </a>
                     </div>
                     <div class="p-2">
-                        <a href="/archive/{{ url.id }}"><span class="fa-regular fa-square-check"></span></a>
+                        <a href="{% url 'archive_url' url.id %}"><span class="fa-regular fa-square-check"></span></a>
                     </div>
                 </div>
                 {% if url.content %}

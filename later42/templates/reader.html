@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="post-preview">
+<!-- Post preview-->
+{% if content %}
+    <div class="d-flex justify-content-between">
+        <div class="p-2">
+            <h2 class="post-title">{{ content.title }}</h2>
+            <div class="d-flex justify-content-between">
+                <div class="p-2">
+                    <a href="{% url 'archive_url' url.id %}"><span class="fa-regular fa-square-check"></span>&nbsp;Отметить прочитанным</a>
+                </div>
+                <div class="p-2">
+                    <a href="{{ url.url }}">Открыть оригинал статьи</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="my-4" />
+    {{ content.rich_content|safe }}
+    <div class="d-flex justify-content-between">
+        <div class="p-2">
+            <a href="{% url 'archive_url' url.id %}"><span class="fa-regular fa-square-check"></span>&nbsp;Отметить прочитанным</a>
+        </div>
+        <div class="p-2">
+            <a href="{{ url.url }}">Открыть оригинал статьи</a>
+        </div>
+    </div>
+{% else %}
+    <h2 class="post-title">Что-то пошло не так.</h2>
+    Открыть <a href="{{ url.url }}">оригинал ссылки</a>.
+{% endif %}
+</div>
+{% endblock %}
