@@ -160,3 +160,4 @@ REST_FRAMEWORK = {
 
 URLS_PER_PAGE = 20
 READABILITY_HOST = os.getenv('READABILITY_HOST', None)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
