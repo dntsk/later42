@@ -23,7 +23,7 @@ class URL(APIView):
         try:
             response = requests.get(url).json()
             return response['excerpt']
-        except AttributeError:
+        except KeyError:
             return None
 
     def post(self, request, format=None):
