@@ -8,12 +8,21 @@ from django.conf import settings
 
 
 class URL(APIView):
-    def get_title(self, url):
+    def get_title(self, url: str):
         try:
             response = requests.get(url)
             soup = BeautifulSoup(response.text, 'html.parser')
             title = soup.find('title').text
             return title
+        except AttributeError:
+            return None
+
+    def get_content(self, url: str):
+        url = settings.READABILITY_HOST.rstrip(
+            '/') + '/api/content/v1/parser?url=' + url
+        try:
+            response = requests.get(url).json()
+            return response['excerpt']
         except AttributeError:
             return None
 
