@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from bs4 import BeautifulSoup
 from later42.models.urls import URL as URLModel
+from django.conf import settings
 
 
 class URL(APIView):
@@ -22,7 +23,13 @@ class URL(APIView):
             title = self.get_title(url)
             if title is None:
                 title = url
-            url = URLModel(url=url, title=title, user=request.user)
+
+            content = None
+            if settings.READABILITY_HOST:
+                content = self.get_content(url)
+
+            url = URLModel(url=url, user=request.user,
+                           title=title, content=content)
             url.save()
             return Response({'status': 'success'})
         else:

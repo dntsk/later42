@@ -13,6 +13,11 @@
                         <a href="/archive/{{ url.id }}"><span class="fa-solid fa-trash"></span></a>
                     </div>
                 </div>
+                {% if url.content %}
+                <p class="post-meta">
+                    {{ url.content }}
+                </p>
+                {% endif %}
                 <p class="post-meta">
                     {{ url.url }}
                 </p>

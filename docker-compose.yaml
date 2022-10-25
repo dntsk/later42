@@ -65,6 +65,7 @@ services:
       POSTGRES_PASSWORD: later42
       POSTGRES_DB: later42
       POSTGRES_HOST_AUTH_METHOD: trust
+      READABILITY_HOST: http://ureadability:8080/
     volumes:
       - /opt/docker/later42/db:/var/lib/postgresql/data
     logging:
@@ -72,3 +73,37 @@ services:
       options:
         max-size: "10m"
         max-file: "5"
+
+  ureadability:
+    image: umputun/ukeeper-readability:latest
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+    hostname: ureadability
+    restart: always
+    container_name: ureadability
+    links:
+      - mongo
+    environment:
+      - MONGO_URI=mongodb://root:aldbhvaygvavASDVSDFVQFQgfwvsav@mongo:27017
+      - MONGO_DELAY=10s
+      - CREDS=test:l4!AzQVW1dSN0T^7IJGn&Kr!kwRSF2P1
+
+  mongo:
+    image: mongo:5.0
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+    hostname: mongo
+    restart: always
+    container_name: ureadability-mongo
+    environment:
+      - MONGO_INITDB_DATABASE=admin
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=aldbhvaygvavASDVSDFVQFQgfwvsav
+    volumes:
+      - /opt/docker/mongodb:/data/db
