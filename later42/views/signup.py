@@ -5,6 +5,7 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_text
 from django.core.mail import EmailMessage
+from django.conf import settings
 from later42.forms import SignUpForm
 from later42.tokens import account_activation_token
 
@@ -33,7 +34,8 @@ def register(request):
             })
             to_email = form.cleaned_data.get('email')
             email = EmailMessage(
-                mail_subject, message, to=[to_email]
+                mail_subject, message, to=[
+                    to_email], from_email=settings.EMAIL_FROM
             )
             email.send()
 
