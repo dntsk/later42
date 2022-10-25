@@ -7,7 +7,9 @@
             <div class="post-preview">
                 <div class="d-flex justify-content-between">
                     <div class="p-2">
-                        <a href="{{ url.url }}"><h2 class="post-title">{{ url.title }}</h2></a>
+                        <a href="{{ url.url }}">
+                            <h2 class="post-title">{{ url.title }}</h2>
+                        </a>
                     </div>
                     <div class="p-2">
                         <a href="/archive/{{ url.id }}"><span class="fa-solid fa-trash"></span></a>
@@ -19,7 +21,9 @@
                 </p>
                 {% endif %}
                 <p class="post-meta">
-                    {{ url.url }}
+                    <a href="{{ url.url }}">
+                        {{ url.url }}
+                    </a>
                 </p>
             </div>
             <!-- Divider-->
