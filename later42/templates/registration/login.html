@@ -5,8 +5,14 @@
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
-  <button class="btn btn-primary text-uppercase" type="submit">Войти</button>
+      <div class="d-flex justify-content-between">
+        <div class="p-2">
+          <button class="btn btn-primary text-uppercase" type="submit">Войти</button>
+        </div>
+        <div class="p-2">
+          <a href={% url 'password_reset' %} class="btn btn-primary text-uppercase">Забыл пароль</a>
+        </div>
+      </div>
 </form>
 <br />
 {% endblock %}
-

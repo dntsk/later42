@@ -33,13 +33,13 @@ CSRF_TRUSTED_ORIGINS = ['https://' + os.getenv('DOMAIN', 'localhost')]
 # Application definition
 
 INSTALLED_APPS = [
+    'later42',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'later42',
     'rest_framework',
     'rest_framework.authtoken',
 ]
@@ -162,6 +162,8 @@ URLS_PER_PAGE = 20
 READABILITY_HOST = os.getenv('READABILITY_HOST', None)
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', False)
 EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp')
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', None)

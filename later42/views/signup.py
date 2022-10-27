@@ -15,18 +15,14 @@ def register(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            # user.refresh_from_db()
             user.is_active = False
             user.save()
             raw_password = form.cleaned_data.get('password1')
 
             current_site = get_current_site(request)
 
-            # user = authenticate(username=user.username, password=raw_password)
-            # login(request, user)
-
             mail_subject = 'Later42: Активация аккаунта'
-            message = render_to_string('email_activation.html', {
+            message = render_to_string('registration/email_activation.html', {
                 'user': user,
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
@@ -39,7 +35,7 @@ def register(request):
             )
             email.send()
 
-            return render(request, 'email_sent.html')
+            return render(request, 'registration/email_sent.html')
     else:
         form = SignUpForm()
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'registration/signup.html', {'form': form})
