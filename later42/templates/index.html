@@ -21,9 +21,7 @@
                 </p>
                 {% endif %}
                 <p class="post-meta">
-                    <a href="{{ url.url }}">
-                        {{ url.url }}
-                    </a>
+                    {{ url.url|urlizetrunc:70 }}
                 </p>
             </div>
             <!-- Divider-->

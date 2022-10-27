@@ -13,9 +13,10 @@ def sanitize_img_size(html: str):
 
 
 def get_content(url: str):
-    url = settings.READABILITY_HOST.rstrip(
-        '/') + '/api/content/v1/parser?url=' + url
-    try:
-        return requests.get(url).json()
-    except KeyError:
-        return None
+    if settings.READABILITY_HOST:
+        url = settings.READABILITY_HOST.rstrip(
+            '/') + '/api/content/v1/parser?url=' + url
+        try:
+            return requests.get(url).json()
+        except KeyError:
+            return None
