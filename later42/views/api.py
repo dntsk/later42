@@ -11,7 +11,10 @@ class URL(APIView):
         if url:
             page = get_content(url)
 
-            title = page['title']
+            try:
+                title = page['title']
+            except KeyError:
+                title = ''
 
             content = None
             if settings.READABILITY_HOST:
