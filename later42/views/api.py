@@ -18,7 +18,10 @@ class URL(APIView):
 
             content = None
             if settings.READABILITY_HOST:
-                content = page['excerpt']
+                try:
+                    content = page['excerpt']
+                except KeyError:
+                    content = ''
 
             url = URLModel(url=url, user=request.user,
                            title=title, content=content)
