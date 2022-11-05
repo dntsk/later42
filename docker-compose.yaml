@@ -46,6 +46,7 @@ services:
       DB_PASS: later42
       DOMAIN: later42.com
       READABILITY_HOST: http://ureadability:8080/
+      REDIS_URL: redis://redis:6379
     logging:
       driver: json-file
       options:
@@ -108,5 +109,18 @@ services:
       - MONGO_INITDB_DATABASE=admin
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=aldbhvaygvavASDVSDFVQFQgfwvsav
+    ports:
+      - "27017:27017"
     volumes:
       - /opt/docker/mongodb:/data/db
+
+  redis:
+    image: "redis:alpine"
+    hostname: redis
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - /opt/docker/redis-data:/var/lib/redis
+    environment:
+      - REDIS_REPLICATION_MODE=master

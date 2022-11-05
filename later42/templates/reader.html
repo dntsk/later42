@@ -12,7 +12,7 @@
                     <a href="{% url 'archive_url' url.id %}"><span class="fa-regular fa-square-check"></span>&nbsp;Отметить прочитанным</a>
                 </div>
                 <div class="p-2">
-                    <a href="{{ url.url }}">Открыть оригинал статьи</a>
+                    <a href="{{ url.url }}"><span class="fa-solid fa-arrow-up-right-from-square"></span>&nbsp;Открыть оригинал статьи</a>
                 </div>
             </div>
         </div>
@@ -24,12 +24,12 @@
             <a href="{% url 'archive_url' url.id %}"><span class="fa-regular fa-square-check"></span>&nbsp;Отметить прочитанным</a>
         </div>
         <div class="p-2">
-            <a href="{{ url.url }}">Открыть оригинал статьи</a>
+            <a href="{{ url.url }}"><span class="fa-solid fa-arrow-up-right-from-square"></span>&nbsp;Открыть оригинал статьи</a>
         </div>
     </div>
 {% else %}
     <h2 class="post-title">Что-то пошло не так.</h2>
-    Открыть <a href="{{ url.url }}">оригинал ссылки</a>.
+    <span class="fa-solid fa-arrow-up-right-from-square"></span>&nbsp;Открыть <a href="{{ url.url }}">оригинал ссылки</a>.
 {% endif %}
 </div>
 {% endblock %}
