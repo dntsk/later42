@@ -16,6 +16,31 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+        <script>
+        function copyToken(token) {
+            if (window.clipboardData && window.clipboardData.setData) {
+                // IE: prevent textarea being shown while dialog is visible
+                return window.clipboardData.setData("Text", token);
+            } else if (document.queryCommandSupported &&
+                    document.queryCommandSupported("copy")) {
+                var textarea = document.createElement("textarea");
+                textarea.textContent = token;
+                // Prevent scrolling to bottom of page in MS Edge
+                textarea.style.position = "fixed";
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    // Security exception may be thrown by some browsers
+                    return document.execCommand("copy");
+                } catch (ex) {
+                    console.warn("Copy to clipboard failed.", ex);
+                    return false;
+                } finally {
+                    document.body.removeChild(textarea);
+                }
+            }
+        }
+        </script>
     </head>
     <body>
         <!-- Navigation-->

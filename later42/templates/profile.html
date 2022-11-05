@@ -3,7 +3,6 @@
 {% block title %}Настройки{% endblock %}
 
 {% block content %}
-
     <h2 class="center-block">Профиль</h2>
 
     <p> </p>
@@ -43,6 +42,7 @@
             {{ token }}
             <form action="{% url 'api_token' %}" method="post">
                 {% csrf_token %}
+                <input type="button" class="btn btn-primary text-uppercase" onclick="copyToken('{{ token }}')" value="Скопировать"></input>
                 <input class="btn btn-primary text-uppercase" type="submit" id="resetbutton" value="Сбросить на новый">
             </form>
 {% else %}
