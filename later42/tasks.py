@@ -6,12 +6,16 @@ from later42.models.urls import URL
 from later42.models.article import Article
 from later42.libs.content import get_content
 
-notifier = pybrake.Notifier(
-    project_id=os.getenv('AIRBRAKE_PROJECT_ID'),
-    project_key=os.getenv('AIRBRAKE_PROJECT_KEY'),
-    environment="celery"
-)
-patch_celery(notifier)
+AIRBRAKE_PROJECT_ID = os.getenv('AIRBRAKE_PROJECT_ID', None)
+AIRBRAKE_PROJECT_KEY = os.getenv('AIRBRAKE_PROJECT_KEY', None)
+
+if AIRBRAKE_PROJECT_ID is not None and AIRBRAKE_PROJECT_KEY is not None:
+    notifier = pybrake.Notifier(
+        project_id=AIRBRAKE_PROJECT_ID,
+        project_key=AIRBRAKE_PROJECT_KEY,
+        environment="celery"
+    )
+    patch_celery(notifier)
 
 
 @shared_task()
