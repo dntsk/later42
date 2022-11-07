@@ -3,7 +3,7 @@ name: build
 on:
   push:
     branches:
-      - 'master'
+      - "master"
 
 jobs:
   build:
@@ -54,8 +54,8 @@ jobs:
             StrictHostKeyChecking no
             UserKnownHostsFile /dev/null
           END
-          ssh cloud 'docker-compose -f /opt/docker-compose.yaml pull later42'
-          ssh cloud 'docker-compose -f /opt/docker-compose.yaml up -d later42'
+          ssh cloud 'docker-compose -f /opt/docker-compose.yaml pull later42 later42_tasks'
+          ssh cloud 'docker-compose -f /opt/docker-compose.yaml up -d later42 later42_tasks'
           rm -rf /home/runner/.ssh
         env:
           SSH_KEY: ${{ secrets.SSH_KEY }}

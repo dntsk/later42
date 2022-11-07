@@ -180,12 +180,12 @@ EMAIL_FROM = os.getenv('EMAIL_FROM', 'noreply@later42.com')
 
 
 AIRBRAKE = dict(
-    project_id=os.getenv('AIRBRAKE_PROJECT_ID', 462604),
+    project_id=os.getenv('AIRBRAKE_PROJECT_ID', None),
     project_key=os.getenv('AIRBRAKE_PROJECT_KEY', None),
     environment=os.getenv('AIRBRAKE_ENVIRONMENT', 'development'),
 )
 
-if AIRBRAKE['project_key'] is not None:
+if AIRBRAKE['project_id'] is not None and AIRBRAKE['project_key'] is not None:
     MIDDLEWARE += ['pybrake.middleware.django.AirbrakeMiddleware']
 
     LOGGING = {
