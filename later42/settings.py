@@ -177,3 +177,31 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', None)
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', None)
 EMAIL_PORT = os.getenv('EMAIL_PORT', '25')
 EMAIL_FROM = os.getenv('EMAIL_FROM', 'noreply@later42.com')
+
+
+AIRBRAKE = dict(
+    project_id=os.getenv('AIRBRAKE_PROJECT_ID', 462604),
+    project_key=os.getenv('AIRBRAKE_PROJECT_KEY', None),
+    environment=os.getenv('AIRBRAKE_ENVIRONMENT', 'development'),
+)
+
+if AIRBRAKE['project_key'] is not None:
+    MIDDLEWARE += ['pybrake.middleware.django.AirbrakeMiddleware']
+
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {
+            'airbrake': {
+                'level': 'ERROR',
+                'class': 'pybrake.LoggingHandler',
+            },
+        },
+        'loggers': {
+            'app': {
+                'handlers': ['airbrake'],
+                'level': 'ERROR',
+                'propagate': True,
+            },
+        },
+    }
