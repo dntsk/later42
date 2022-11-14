@@ -2,52 +2,55 @@
 
 {% block content %}
 <div class="post-preview">
-{% if urls|length > 0 %}
-{% for url in urls %}
+{% if data|length > 0 %}
+{% for d in data %}
 <!-- Post preview-->
 <div class="post-preview">
     <div class="d-flex justify-content-between">
         <div class="p-2">
-            <a href="{% url 'reader' url.id %}">
-                <h2 class="post-title">{{ url.title }}</h2>
+            <a href="{% url 'reader' d.url.id %}">
+                <h2 class="post-title">{% if d.title %}{{ d.title }}{% else %}Без заголовка{% endif %}</h2>
             </a>
         </div>
         <div class="p-2">
-            <a href="/delete/{{ url.id }}"><span class="fa-regular fa-trash-can"></span></a>
+            <a href="/delete/{{ d.url.id }}"><span class="fa-regular fa-trash-can"></span></a>
         </div>
     </div>
-    {% if url.content %}
+    {% if d.short %}
     <p class="post-meta">
-        {{ url.content }}
+        {{ d.short }}
     </p>
     {% endif %}
     <p class="post-meta">
-        <a href="{{ url.url }}">
-            {{ url.url }}
+        <a href="{{ d.url.url }}">
+            {{ d.url.url }}
         </a>
     </p>
 </div>
 <!-- Divider-->
 <hr class="my-4" />
 {% endfor %}
+
+{% if data.number %}
 <div class="pagination container row justify-content-end">
     <div></div>
     <div class="step-links col-auto">
-        {% if urls.has_previous %}
+        {% if data.has_previous %}
         <a href="?page=1">&laquo;</a>
-        <a href="?page={{ urls.previous_page_number }}">&lsaquo;</a>
+        <a href="?page={{ data.previous_page_number }}">&lsaquo;</a>
         {% endif %}
 
         <span class="current">
-            страница {{ urls.number }} из {{ urls.paginator.num_pages }}
+            страница {{ data.number }} из {{ data.paginator.num_pages }}
         </span>
 
-        {% if urls.has_next %}
-        <a href="?page={{ urls.next_page_number }}">&rsaquo;</a>
-        <a href="?page={{ urls.paginator.num_pages }}">&raquo;</a>
+        {% if data.has_next %}
+        <a href="?page={{ data.next_page_number }}">&rsaquo;</a>
+        <a href="?page={{ data.paginator.num_pages }}">&raquo;</a>
         {% endif %}
     </div>
 </div>
+{% endif %}
 {% else %}
     <h2 class="post-title">У вас нет ссылок в архиве</h2>
 {% endif %}

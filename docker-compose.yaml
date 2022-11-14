@@ -34,6 +34,7 @@ services:
         max-file: "5"
 
   later42:
+    build: .
     container_name: later42
     image: dntskdev/later42:master
     restart: always
@@ -58,6 +59,28 @@ services:
       - "traefik.http.routers.later42-opt.entrypoints=https"
       - "traefik.http.routers.later42-opt.tls.certresolver=myresolver"
       - "extdns.cf.later42.hostname=later42.com"
+
+#  later42_tasks:
+#    build: .
+#    container_name: later42_tasks
+#    image: dntskdev/later42:master
+#    restart: always
+#    command: celery -A later42 worker --loglevel=info
+#    environment:
+#      SECRET: "ahth3chaquodahh6que8thie1EThe5Iephich8eikei2Uojaemae6gee0kaet4aush2aoqu0ruL9oGhaiR9luu7cohreH6lebo0v"
+#      DB_TYPE: postgres
+#      DB_HOST: later42db
+#      DB_NAME: later42
+#      DB_USER: later42
+#      DB_PASS: later42
+#      DOMAIN: later42.com
+#      READABILITY_HOST: http://ureadability:8080/
+#      REDIS_URL: redis://redis:6379
+#    logging:
+#      driver: json-file
+#      options:
+#        max-size: "10m"
+#        max-file: "5"
 
   later42db:
     container_name: later42db

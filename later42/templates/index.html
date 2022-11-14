@@ -1,27 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% if user.is_authenticated and urls|length > 0 %}
-        {% for url in urls %}
+    {% if user.is_authenticated and data|length > 0 %}
+        {% for d in data %}
             <!-- Post preview-->
             <div class="post-preview">
                 <div class="d-flex justify-content-between">
                     <div class="p-2">
-                        <a href="{% url 'reader' url.id %}">
-                            <h2 class="post-title">{{ url.title }}</h2>
+                        <a href="{% url 'reader' d.url_id %}">
+                            <h2 class="post-title">{% if d.title %}{{ d.title }}{% else %}Без заголовка{% endif %}</h2>
                         </a>
                     </div>
                     <div class="p-2">
-                        <a href="{% url 'archive_url' url.id %}"><span class="fa-regular fa-square-check"></span></a>
+                        <a href="{% url 'archive_url' d.url_id %}"><span class="fa-regular fa-square-check"></span></a>
                     </div>
                 </div>
-                {% if url.content %}
+                {% if d.short %}
                 <p class="post-meta">
-                    {{ url.content }}
+                    {{ d.short }}
                 </p>
                 {% endif %}
                 <p class="post-meta">
-                    {{ url.url|urlizetrunc:70 }}
+                    {{ d.url.url|urlizetrunc:70 }}
                 </p>
             </div>
             <!-- Divider-->

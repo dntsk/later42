@@ -22,7 +22,7 @@ from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
 
 # from later42.forms import CustomLoginForm
-from later42.views import account_activation, index, profile, api, api_token, reader, signup, about
+from later42.views import account_activation, index, profile, api, api_token, reader, search, signup, about
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -54,4 +54,5 @@ urlpatterns = [
     path('archive/', index.archive, name='archive'),
     path('archive/<int:url_id>', index.archive, name='archive_url'),
     path('reader/<int:url_id>', reader.get, name='reader'),
+    path('search/', search.search, name='search'),
 ]

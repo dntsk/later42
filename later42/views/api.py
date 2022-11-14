@@ -8,26 +8,8 @@ from django.conf import settings
 
 class URL(APIView):
     def post(self, request, format=None):
-        url = request.GET.get('url')
-        if url:
-            page = get_content(url)
-
-            try:
-                title = page['title']
-            except KeyError:
-                title = ''
-
-            content = None
-            if settings.READABILITY_HOST:
-                try:
-                    content = page['excerpt']
-                except KeyError:
-                    content = ''
-
-            url = URLModel(url=url, user=request.user,
-                           title=title, content=content)
-            url.save()
-            get_url_content_task.delay(url.id)
+        if request.GET.get('url'):
+            get_url_content_task.delay(request.GET.get('url'), request.user.id)
             return Response({'status': 'success'})
         else:
             return Response({'status': 'error'})

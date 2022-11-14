@@ -1,6 +1,7 @@
 import os
 import pybrake
 from celery import shared_task
+from django.contrib.auth.models import User
 from pybrake.middleware.celery import patch_celery
 from later42.models.urls import URL
 from later42.models.article import Article
@@ -19,9 +20,17 @@ if AIRBRAKE_PROJECT_ID is not None and AIRBRAKE_PROJECT_KEY is not None:
 
 
 @shared_task()
-def get_url_content_task(id):
-    url = URL.objects.get(id=id)
-    article = Article.objects.create(url=url)
-    content = get_content(url.url)['rich_content']
-    article.content = content
+def get_url_content_task(url, user_id):
+    print(url)
+    print(user_id)
+    user = User.objects.get(pk=int(user_id))
+    url_object = URL(url=url, user=user)
+    url_object.save()
+
+    data = get_content(url)
+
+    article = Article.objects.create(url=url_object)
+    article.content = data['rich_content']
+    article.title = data['title']
+    article.short = data['excerpt']
     article.save()
