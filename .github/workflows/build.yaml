@@ -9,15 +9,6 @@ jobs:
   tests:
     runs-on: ubuntu-latest
 
-    services:
-      redis:
-        image: redis
-        options: >-
-          --health-cmd "redis-cli ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -37,6 +28,9 @@ jobs:
         env:
           REDIS_URL: redis://redis:6379/0
         run: |
+          apt-get update
+          apt-get install -y redis-server
+          service redis-server start
           python manage.py collectstatic --noinput
           python manage.py migrate --noinput
           python manage.py test --noinput
