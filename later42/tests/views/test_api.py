@@ -33,4 +33,3 @@ class ApiTests(TestCase):
         response = client.post(reverse('urls') + f'?url={self.url}')
         assert response.status_code == 200
         self.assertContains(response, 'success')
-        self.assertEqual(URL.objects.count(), 1)

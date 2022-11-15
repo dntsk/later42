@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.core.validators import URLValidator
@@ -6,10 +7,18 @@ from later42.tasks import get_url_content_task
 from django.conf import settings
 
 
+def validate_url(to_validate:str) -> bool:
+    validator = URLValidator()
+    try:
+        validator(to_validate)
+        return True
+    except ValidationError as exception:
+        return False
+
+
 class URL(APIView):
     def post(self, request, format=None):
-        val = URLValidator(verify_exists=False)
-        if val(request.GET.get('url')):
+        if validate_url(request.GET.get('url')):
             get_url_content_task.delay(request.GET.get('url'), request.user.id)
             return Response({'status': 'success'})
         else:
