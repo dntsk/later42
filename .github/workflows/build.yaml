@@ -25,10 +25,13 @@ jobs:
 
       - name: Start Redis
         uses: superchargejs/redis-github-action@1.4.0
+        with:
+          redis-version: 5
+          redis-container-name: redis-later42
 
       - name: Run Tests
         env:
-          REDIS_URL: redis://redis:6379/0
+          REDIS_URL: redis://redis-later42:6379/0
         run: |
           python manage.py collectstatic --noinput
           python manage.py migrate --noinput
