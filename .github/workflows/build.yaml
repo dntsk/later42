@@ -9,11 +9,8 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     services:
-      # Label used to access the service container
-      redis-later42:
-        # Docker Hub image
+      redis:
         image: redis
-        # Set health checks to wait until redis has started
         options: >-
           --health-cmd "redis-cli ping"
           --health-interval 10s
@@ -25,10 +22,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: 3.10
 
       - name: Install Dependencies
         run: |
@@ -38,7 +35,7 @@ jobs:
 
       - name: Run Tests
         env:
-          REDIS_URL: redis://redis-later42:6379/0
+          REDIS_URL: redis://redis:${{ job.services.redis.ports[6379] }}/0
         run: |
           python manage.py collectstatic --noinput
           python manage.py migrate --noinput
