@@ -27,8 +27,6 @@ jobs:
         uses: superchargejs/redis-github-action@1.4.0
 
       - name: Run Tests
-        env:
-          REDIS_URL: redis://redis:6379/0
         run: |
           python manage.py collectstatic --noinput
           python manage.py migrate --noinput
