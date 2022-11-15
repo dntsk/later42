@@ -8,7 +8,6 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -24,13 +23,15 @@ jobs:
           pip install -r requirements.txt
           pip install coverage coveralls
 
+      - name: Start Redis v5
+        uses: superchargejs/redis-github-action@1.1.0
+        with:
+          redis-version: ${{ matrix.redis-version }}
+
       - name: Run Tests
         env:
           REDIS_URL: redis://redis:6379/0
         run: |
-          apt-get update
-          apt-get install -y redis-server
-          service redis-server start
           python manage.py collectstatic --noinput
           python manage.py migrate --noinput
           python manage.py test --noinput
