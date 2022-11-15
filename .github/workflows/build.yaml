@@ -23,10 +23,8 @@ jobs:
           pip install -r requirements.txt
           pip install coverage coveralls
 
-      - name: Start Redis v5
-        uses: superchargejs/redis-github-action@1.1.0
-        with:
-          redis-version: ${{ matrix.redis-version }}
+      - name: Start Redis
+        uses: superchargejs/redis-github-action@1.4.0
 
       - name: Run Tests
         env:
