@@ -205,3 +205,16 @@ if AIRBRAKE['project_id'] is not None and AIRBRAKE['project_key'] is not None:
             },
         },
     }
+
+SENTRY_DSN=os.getenv('SENTRY_DSN', None)
+
+if SENTRY_DSN is not None:
+    import sentry_sdk
+    from sentry_sdk.integrations.django import DjangoIntegration
+
+    sentry_sdk.init(
+        dsn=SENTRY_DSN,
+        integrations=[DjangoIntegration()],
+        traces_sample_rate=1.0,
+        send_default_pii=True,
+    )
