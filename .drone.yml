@@ -9,7 +9,7 @@ services:
 
 steps:
   - name: test
-    image: python:3.10
+    image: python:3.11
     environment:
       REDIS_URL: redis://redis:6379/0
     commands:
