@@ -67,34 +67,33 @@ trigger:
 
 depends_on:
   - test
+# ---
+# kind: pipeline
+# type: docker
+# name: deploy
 
----
-kind: pipeline
-type: docker
-name: deploy
+# steps:
+#   - name: deploy
+#     image: appleboy/drone-ssh
+#     settings:
+#       host:
+#         from_secret: ssh_host
+#       username:
+#         from_secret: ssh_username
+#       key:
+#         from_secret: ssh_key
+#       port: 22
+#       script:
+#         - cd /opt
+#         - docker-compose pull later42
+#         - docker-compose up -d later42 later42_tasks
 
-steps:
-  - name: deploy
-    image: appleboy/drone-ssh
-    settings:
-      host:
-        from_secret: ssh_host
-      username:
-        from_secret: ssh_username
-      key:
-        from_secret: ssh_key
-      port: 22
-      script:
-        - cd /opt
-        - docker-compose pull later42
-        - docker-compose up -d later42 later42_tasks
+# trigger:
+#   branch:
+#     - master
 
-trigger:
-  branch:
-    - master
-
-depends_on:
-  - build
+# depends_on:
+#   - build
 # ---
 # kind: pipeline
 # type: docker
