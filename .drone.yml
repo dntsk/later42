@@ -103,7 +103,7 @@ depends_on:
 ---
 kind: pipeline
 type: docker
-name: notifications
+name: Notify
 
 steps:
   - name: telegram
@@ -122,4 +122,4 @@ trigger:
     - failure
 
 depends_on:
-  - deploy
+  - Deploy
