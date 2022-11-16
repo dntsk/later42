@@ -13,7 +13,8 @@ def get(request):
     try:
         urls = URL.objects.filter(
             user=request.user, archived=False).order_by('-id')
-        data = Article.objects.filter(url__in=urls).select_related('url')
+        data = Article.objects.filter(
+            url__in=urls).select_related('url').order_by('-id')
     except:
         urls = []
     context = {'data': data}
@@ -28,7 +29,8 @@ def archive(request, url_id=None):
     try:
         urls = URL.objects.filter(
             user=request.user, archived=True).order_by('-id')
-        data = Article.objects.filter(url__in=urls).select_related('url').order_by('-id')
+        data = Article.objects.filter(
+            url__in=urls).select_related('url').order_by('-id')
         paginator = Paginator(data, settings.URLS_PER_PAGE)
         page_number = request.GET.get('page')
         data = paginator.get_page(page_number)
