@@ -1,7 +1,7 @@
 ---
 kind: pipeline
 type: docker
-name: test
+name: Tests
 
 services:
   - name: redis
@@ -9,7 +9,7 @@ services:
 
 steps:
   - name: test
-    image: python:3.11
+    image: python:3.10
     environment:
       REDIS_URL: redis://redis:6379/0
     commands:
