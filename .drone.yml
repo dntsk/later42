@@ -21,6 +21,7 @@ steps:
     volumes:
       - name: cache
         path: /root/.cache/pip
+
 trigger:
   branch:
     - master
@@ -92,6 +93,9 @@ steps:
 trigger:
   branch:
     - master
+  event:
+    include:
+      - push
 
 depends_on:
   - Build
