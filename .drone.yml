@@ -1,0 +1,131 @@
+---
+kind: pipeline
+type: docker
+name: test
+
+services:
+  - name: redis
+    image: redis
+
+steps:
+  - name: test
+    image: python:3.11
+    environment:
+      REDIS_URL: redis://redis:6379/0
+    commands:
+      - pip install -r requirements.txt --cache-dir=/root/.cache/pip
+      - ./manage.py test
+    volumes:
+      - name: cache
+        path: /root/.cache/pip
+trigger:
+  branch:
+    - master
+
+volumes:
+  - name: cache
+    host:
+      path: /opt/docker/drone/cache
+# ---
+# kind: pipeline
+# type: docker
+# name: build
+
+# steps:
+#   - name: build
+#     image: docker
+#     commands:
+#       - docker build -t registry.dntsk.dev/audiobooks:${DRONE_BRANCH} .
+#       - docker push registry.dntsk.dev/audiobooks:${DRONE_BRANCH}
+#     volumes:
+#       - name: cache
+#         path: /root/.cache/pip
+#       - name: docker_sock
+#         path: /var/run/docker.sock
+#       - name: docker_config
+#         path: /root/.docker
+
+# volumes:
+#   - name: cache
+#     host:
+#       path: /opt/docker/drone/cache
+#   - name: docker_sock
+#     host:
+#       path: /var/run/docker.sock
+#   - name: docker_config
+#     host:
+#       path: /root/.docker
+
+# trigger:
+#   branch:
+#     - master
+#     - staging
+
+# depends_on:
+#   - test
+
+# ---
+# kind: pipeline
+# type: docker
+# name: deploy
+
+# steps:
+#   - name: deploy_staging
+#     image: appleboy/drone-ssh
+#     settings:
+#       host:
+#         from_secret: ssh_host
+#       username:
+#         from_secret: ssh_username
+#       key:
+#         from_secret: ssh_key
+#       port: 22
+#       script:
+#         - cd /opt
+#         - docker-compose pull abooks_staging
+#         - docker-compose up -d abooks_staging
+#     when:
+#       branch: staging
+#   - name: deploy_production
+#     image: appleboy/drone-ssh
+#     settings:
+#       host:
+#         from_secret: ssh_host
+#       username:
+#         from_secret: ssh_username
+#       key:
+#         from_secret: ssh_key
+#       port: 22
+#       script:
+#         - cd /opt
+#         - docker-compose pull abooks_prod
+#         - docker-compose up -d abooks_prod
+#     when:
+#       branch: master
+
+# depends_on:
+#   - build
+
+# ---
+# kind: pipeline
+# type: docker
+# name: notifications
+
+# steps:
+#   - name: telegram
+#     pull: always
+#     image: appleboy/drone-telegram
+#     settings:
+#       message: "{{#success build.status}} ✅  Build #{{build.number}} of `{{repo.name}}` succeeded.\n\n📝 Commit by {{commit.author}} on `{{commit.branch}}`:\n``` {{commit.message}} ```\n\n🌐 {{ build.link }} {{else}} ❌  Build #{{build.number}} of `{{repo.name}}` failed.\n\n📝 Commit by {{commit.author}} on `{{commit.branch}}`:\n``` {{commit.message}} ```\n\n🌐 {{ build.link }} {{/success}}\n"
+#       to:
+#         from_secret: telegram_to
+#       token:
+#         from_secret: telegram_token
+
+# trigger:
+#   status:
+#     - success
+#     - failure
+
+# depends_on:
+#   - deploy
