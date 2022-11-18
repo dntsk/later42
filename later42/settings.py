@@ -87,14 +87,14 @@ DATABASES = {
     }
 }
 
-if os.getenv('DB_TYPE') == 'postgres':
+if os.getenv('DB_TYPE', 'SQLite') == 'postgres':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'HOST': os.environ.get('DB_HOST'),
-            'NAME': os.environ.get('DB_NAME'),
-            'USER': os.environ.get('DB_USER'),
-            'PASSWORD': os.environ.get('DB_PASS'),
+            'HOST': os.environ.get('DB_HOST', None),
+            'NAME': os.environ.get('DB_NAME', None),
+            'USER': os.environ.get('DB_USER', None),
+            'PASSWORD': os.environ.get('DB_PASS', None),
         }
     }
 
@@ -123,7 +123,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru-ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = os.getenv('TZ', 'UTC')
 
 USE_I18N = True
 
@@ -159,14 +159,14 @@ REST_FRAMEWORK = {
 }
 
 # Celery Configuration Options
-CELERY_TIMEZONE = "UTC"
+CELERY_TIMEZONE = TIME_ZONE
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
 CELERY_BROKER_URL = os.getenv('REDIS_URL', 'redis://localhost:6379')
 CELERY_RESULT_BACKEND = os.getenv('REDIS_URL', 'redis://localhost:6379')
 
 URLS_PER_PAGE = 20
-READABILITY_HOST = os.getenv('READABILITY_HOST', None)
+READABILITY_HOST = os.getenv('READABILITY_HOST', "http://localhost:8080/")
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 if DEBUG:
@@ -206,7 +206,7 @@ if AIRBRAKE['project_id'] is not None and AIRBRAKE['project_key'] is not None:
         },
     }
 
-SENTRY_DSN=os.getenv('SENTRY_DSN', None)
+SENTRY_DSN = os.getenv('SENTRY_DSN', None)
 
 if SENTRY_DSN is not None:
     import sentry_sdk
