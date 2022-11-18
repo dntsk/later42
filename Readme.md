@@ -1,6 +1,6 @@
 # Later42
 
-![License](https://img.shields.io/github/license/dntsk/later42) [![Build Status](https://ci.lyalyuev.info/api/badges/dntsk/later42/status.svg)](https://ci.lyalyuev.info/dntsk/later42)
+[![Maintained](https://img.shields.io/badge/maintained%20by-dntsk.dev-blue.svg)](https://dntsk.dev/) ![License](https://img.shields.io/github/license/dntsk/later42) ![Build Status](https://ci.lyalyuev.info/api/badges/dntsk/later42/status.svg)
 
 Selfhostable read it later service.
 
