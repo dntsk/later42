@@ -4,6 +4,14 @@
 
 Selfhostable read it later service.
 
+## Installation with Docker
+
+This is the recommended way to run Later42
+
+* copy provided docker-compose.yml and customize for your needs
+* pull prepared images from the Docker Hub and start - `docker-compose pull && docker-compose up -d`
+* alternatively, compile from the sources - `docker-compose build && docker-compose up -d`
+
 ## Environment variables
 
 | Variable            | Default                 | Description
