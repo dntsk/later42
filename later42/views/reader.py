@@ -15,11 +15,11 @@ def get(request, url_id=None):
     content = {}
     try:
         article = Article.objects.get(url=url)
-        content['rich_content'] = article.content
         content['title'] = url.title
         content['url'] = url.url
-        content['rich_content'] = sanitize_img_size(content['rich_content'])
+        content['rich_content'] = sanitize_img_size(article.content)
     except:
         content = get_content(url.url)
+        content['rich_content'] = sanitize_img_size(content['rich_content'])
     context = {'url': url, 'content': content}
     return render(request, 'reader.html', context)
