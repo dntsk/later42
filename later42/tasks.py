@@ -1,11 +1,13 @@
 import os
+
 import pybrake
 from celery import shared_task
 from django.contrib.auth.models import User
 from pybrake.middleware.celery import patch_celery
-from later42.models.urls import URL
-from later42.models.article import Article
+
 from later42.libs.content import get_content
+from later42.models.article import Article
+from later42.models.urls import URL
 
 AIRBRAKE_PROJECT_ID = os.getenv('AIRBRAKE_PROJECT_ID', None)
 AIRBRAKE_PROJECT_KEY = os.getenv('AIRBRAKE_PROJECT_KEY', None)
