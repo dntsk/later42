@@ -1,7 +1,5 @@
-import requests
-
 from bs4 import BeautifulSoup
-from django.conf import settings
+from newspaper import Article, Config
 
 
 def sanitize_img_size(html: str):
@@ -13,10 +11,10 @@ def sanitize_img_size(html: str):
 
 
 def get_content(url: str):
-    if settings.READABILITY_HOST:
-        url = settings.READABILITY_HOST.rstrip(
-            '/') + '/api/content/v1/parser?url=' + url
-        try:
-            return requests.get(url).json()
-        except KeyError:
-            return None
+    config = Config()
+    config.keep_article_html = True
+    article = Article(url, config=config)
+    article.download()
+    article.parse()
+
+    return article

@@ -8,3 +8,4 @@ class Article(models.Model):
     content = models.TextField(blank=True, null=True)
     title = models.CharField(max_length=2000, blank=True, null=True)
     short = models.TextField(blank=True, null=True)
+    img = models.URLField(blank=True, null=True)
