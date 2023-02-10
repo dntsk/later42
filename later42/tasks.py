@@ -9,25 +9,21 @@ from later42.libs.content import get_content
 from later42.models.article import Article
 from later42.models.urls import URL
 
-AIRBRAKE_PROJECT_ID = os.getenv('AIRBRAKE_PROJECT_ID', None)
-AIRBRAKE_PROJECT_KEY = os.getenv('AIRBRAKE_PROJECT_KEY', None)
+AIRBRAKE_PROJECT_ID = os.getenv("AIRBRAKE_PROJECT_ID", None)
+AIRBRAKE_PROJECT_KEY = os.getenv("AIRBRAKE_PROJECT_KEY", None)
 
 if AIRBRAKE_PROJECT_ID is not None and AIRBRAKE_PROJECT_KEY is not None:
-    notifier = pybrake.Notifier(
-        project_id=AIRBRAKE_PROJECT_ID,
-        project_key=AIRBRAKE_PROJECT_KEY,
-        environment="celery"
-    )
+    notifier = pybrake.Notifier(project_id=AIRBRAKE_PROJECT_ID, project_key=AIRBRAKE_PROJECT_KEY, environment="celery")
     patch_celery(notifier)
 
 
-@shared_task()
+@shared_task(bind=True, max_retries=3, default_retry_delay=60)
 def get_url_content_task(url, user_id):
+    data = get_content(url)
+
     user = User.objects.get(pk=int(user_id))
     url_object = URL(url=url, user=user)
     url_object.save()
-
-    data = get_content(url)
 
     article = Article.objects.create(url=url_object)
     article.content = data.article_html
