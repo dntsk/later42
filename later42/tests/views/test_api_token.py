@@ -1,11 +1,16 @@
+"""Test the api_token view."""
+
 from django.contrib.auth.models import User
-from django.test import TestCase, Client
+from django.test import Client, TestCase
 from django.urls import reverse
 from rest_framework.authtoken.models import Token
 
 
 class ApiKeyTests(TestCase):
+    """Test the api_token view."""
+
     def setUp(self) -> None:
+        """Set up the test environment."""
         self.username = "testuser1"
         self.email = "testuser1@email.com"
         self.password = "password1234567QWERTY"
@@ -19,14 +24,17 @@ class ApiKeyTests(TestCase):
         self.response = self.c.get(reverse("api_token"))
 
     def test_api_key_creation(self):
+        """Test the api_token view."""
         assert self.response.status_code == 302
         assert self.response.url == "/profile/"
 
     def test_api_key_created(self):
+        """Test the api_token creation."""
         token = Token.objects.get(user=self.user)
         assert token is not None
 
     def test_api_key_reset(self):
+        """Test the api_token reset."""
         token_old = Token.objects.get(user=self.user)
         self.response = self.c.get(reverse("api_token"))
         token_new = Token.objects.get(user=self.user)

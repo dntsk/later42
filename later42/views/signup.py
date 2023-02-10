@@ -1,3 +1,4 @@
+"""Signup view."""
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
@@ -11,6 +12,7 @@ from later42.tokens import account_activation_token
 
 
 def register(request):
+    """Register user."""
     if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():

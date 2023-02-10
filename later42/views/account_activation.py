@@ -1,3 +1,4 @@
+"""Account activation view."""
 import django
 from django.contrib.auth import login
 from django.contrib.auth.models import User
@@ -12,6 +13,7 @@ django.utils.encoding.force_text = force_str
 
 
 def activate(request, uidb64, token):
+    """Activate user account."""
     try:
         uid = django.utils.encoding.force_text(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)

@@ -1,3 +1,4 @@
+"""Test API views."""
 from django.contrib.auth.models import User
 from django.test import Client, TestCase
 from django.urls import reverse
@@ -6,7 +7,10 @@ from rest_framework.test import APIClient
 
 
 class ApiTests(TestCase):
+    """Test API views."""
+
     def setUp(self) -> None:
+        """Set up test data."""
         self.username = "testuser1"
         self.email = "testuser1@email.com"
         self.password = "password1234567QWERTY"
@@ -22,6 +26,7 @@ class ApiTests(TestCase):
         self.token = Token.objects.create(user=self.user)
 
     def test_url_create(self):
+        """Test the url creation."""
         token = Token.objects.get(user=self.user)
         client = APIClient()
         client.credentials(HTTP_AUTHORIZATION="Token " + token.key)

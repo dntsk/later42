@@ -1,3 +1,4 @@
+"""Celery tasks"""
 import os
 
 import pybrake
@@ -23,6 +24,7 @@ if AIRBRAKE_PROJECT_ID is not None and AIRBRAKE_PROJECT_KEY is not None:
 
 @shared_task(bind=True, max_retries=3, default_retry_delay=60)
 def get_url_content_task(self, url, user_id):
+    """Get content from url and save it to database"""
     data = get_content(url)
 
     user = User.objects.get(pk=int(user_id))

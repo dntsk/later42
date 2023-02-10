@@ -1,8 +1,10 @@
+"""Content module."""
 from bs4 import BeautifulSoup
 from newspaper import Article, Config
 
 
 def sanitize_img_size(html: str):
+    """Sanitize image size."""
     soup = BeautifulSoup(html, "html.parser")
     for img in soup.find_all("img"):
         img["width"] = "100%"
@@ -11,6 +13,7 @@ def sanitize_img_size(html: str):
 
 
 def get_content(url: str):
+    """Get content."""
     config = Config()
     config.keep_article_html = True
     article = Article(url, config=config)

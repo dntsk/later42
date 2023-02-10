@@ -1,3 +1,4 @@
+"""API Token Views."""
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from rest_framework.authtoken.models import Token
@@ -5,6 +6,7 @@ from rest_framework.authtoken.models import Token
 
 @login_required
 def create(request):
+    """Create API Token for user."""
     token = Token.objects.filter(user=request.user)
     if len(token) > 0:
         token.delete()

@@ -1,3 +1,4 @@
+"""Search view."""
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -9,6 +10,7 @@ from later42.models.article import Article
 
 @login_required
 def search(request):
+    """Search view."""
     pattern = request.POST.get("search")
     context = {}
     if request.method == "GET":

@@ -1,3 +1,4 @@
+"""API views for later42."""
 from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
 from rest_framework.response import Response
@@ -8,6 +9,7 @@ from later42.tasks import get_url_content_task
 
 
 def validate_url(to_validate: str) -> bool:
+    """Validate url."""
     validator = URLValidator()
     try:
         validator(to_validate)
@@ -17,7 +19,10 @@ def validate_url(to_validate: str) -> bool:
 
 
 class URL(APIView):
+    """URL API view."""
+
     def post(self, request, format=None):
+        """Post url to be processed."""
         if validate_url(request.GET.get("url")):
             get_url_content_task.delay(request.GET.get("url"), request.user.id)
             return Response({"status": "success"})
@@ -25,6 +30,7 @@ class URL(APIView):
             return Response({"status": "error"})
 
     def delete(self, request, format=None):
+        """Delete url from database."""
         id = request.GET.get("id")
         if id:
             url = URLModel.objects.filter(id=id).first()
