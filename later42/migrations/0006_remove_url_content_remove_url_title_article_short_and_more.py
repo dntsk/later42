@@ -4,28 +4,27 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('later42', '0005_rename_articles_article'),
+        ("later42", "0005_rename_articles_article"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='url',
-            name='content',
+            model_name="url",
+            name="content",
         ),
         migrations.RemoveField(
-            model_name='url',
-            name='title',
+            model_name="url",
+            name="title",
         ),
         migrations.AddField(
-            model_name='article',
-            name='short',
+            model_name="article",
+            name="short",
             field=models.TextField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='article',
-            name='title',
+            model_name="article",
+            name="title",
             field=models.CharField(blank=True, max_length=2000, null=True),
         ),
     ]

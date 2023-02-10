@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('later42', '0001_initial'),
+        ("later42", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='url',
-            name='archived',
+            model_name="url",
+            name="archived",
             field=models.BooleanField(default=False),
         ),
     ]

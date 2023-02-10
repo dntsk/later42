@@ -17,18 +17,29 @@ from django.contrib import admin
 
 from django.urls import path, include
 from django.contrib.auth.models import User
+
 # from django.contrib.auth import views
 
 from rest_framework import routers, serializers, viewsets
 
 # from later42.forms import CustomLoginForm
-from later42.views import account_activation, index, profile, api, api_token, reader, search, signup, about
+from later42.views import (
+    account_activation,
+    index,
+    profile,
+    api,
+    api_token,
+    reader,
+    search,
+    signup,
+    about,
+)
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ['url', 'username', 'email', 'is_staff']
+        fields = ["url", "username", "email", "is_staff"]
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -37,22 +48,25 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
+router.register(r"users", UserViewSet)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('signup/', signup.register, name='signup'),
-    path(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-         account_activation.activate, name='activate'),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('profile/', profile.get, name='profile'),
-    path('api/url/', api.URL.as_view(), name='urls'),
-    path('delete/<int:url_id>', index.delete, name='delete'),
-    path('api_token/', api_token.create, name='api_token'),
-    path('', index.get, name='index'),
-    path('about/', about.get, name='about'),
-    path('archive/', index.archive, name='archive'),
-    path('archive/<int:url_id>', index.archive, name='archive_url'),
-    path('reader/<int:url_id>', reader.get, name='reader'),
-    path('search/', search.search, name='search'),
+    path("admin/", admin.site.urls),
+    path("signup/", signup.register, name="signup"),
+    path(
+        r"^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$",
+        account_activation.activate,
+        name="activate",
+    ),
+    path("accounts/", include("django.contrib.auth.urls")),
+    path("profile/", profile.get, name="profile"),
+    path("api/url/", api.URL.as_view(), name="urls"),
+    path("delete/<int:url_id>", index.delete, name="delete"),
+    path("api_token/", api_token.create, name="api_token"),
+    path("", index.get, name="index"),
+    path("about/", about.get, name="about"),
+    path("archive/", index.archive, name="archive"),
+    path("archive/<int:url_id>", index.archive, name="archive_url"),
+    path("reader/<int:url_id>", reader.get, name="reader"),
+    path("search/", search.search, name="search"),
 ]

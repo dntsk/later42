@@ -29,7 +29,7 @@ SECRET_KEY            |                         | The secret key to make hashes
 DOMAIN                | localhost               | Domain name where the site is hosted
 DB_TYPE               | SQLite                  | Type of DB (SQLite, Postgres)
 DB_HOST               | None                    | Host for Postgres DB
-DB_NAME               | None                    | Name for Postgres DB 
+DB_NAME               | None                    | Name for Postgres DB
 DB_USER               | None                    | User for Postgres DB
 DB_PASS               | None                    | Password for Postgres DB
 REDIS_URL             | redis://localhost:6379  | Connection string for Redis

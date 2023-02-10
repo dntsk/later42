@@ -13,7 +13,11 @@ AIRBRAKE_PROJECT_ID = os.getenv("AIRBRAKE_PROJECT_ID", None)
 AIRBRAKE_PROJECT_KEY = os.getenv("AIRBRAKE_PROJECT_KEY", None)
 
 if AIRBRAKE_PROJECT_ID is not None and AIRBRAKE_PROJECT_KEY is not None:
-    notifier = pybrake.Notifier(project_id=AIRBRAKE_PROJECT_ID, project_key=AIRBRAKE_PROJECT_KEY, environment="celery")
+    notifier = pybrake.Notifier(
+        project_id=AIRBRAKE_PROJECT_ID,
+        project_key=AIRBRAKE_PROJECT_KEY,
+        environment="celery",
+    )
     patch_celery(notifier)
 
 

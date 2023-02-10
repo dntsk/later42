@@ -3,10 +3,10 @@ from newspaper import Article, Config
 
 
 def sanitize_img_size(html: str):
-    soup = BeautifulSoup(html, 'html.parser')
-    for img in soup.find_all('img'):
-        img['width'] = '100%'
-        img['height'] = 'auto'
+    soup = BeautifulSoup(html, "html.parser")
+    for img in soup.find_all("img"):
+        img["width"] = "100%"
+        img["height"] = "auto"
     return str(soup)
 
 

@@ -5,18 +5,27 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('later42', '0003_url_content'),
+        ("later42", "0003_url_content"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Articles',
+            name="Articles",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False)),
-                ('content', models.TextField(blank=True, null=True)),
-                ('url', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='later42.url')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True, primary_key=True, serialize=False
+                    ),
+                ),
+                ("content", models.TextField(blank=True, null=True)),
+                (
+                    "url",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="later42.url"
+                    ),
+                ),
             ],
         ),
     ]

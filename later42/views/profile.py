@@ -10,9 +10,8 @@ def get(request):
     user = User.objects.get(username=request.user)
 
     if token:
-        context = {'token': token[0], 'user': user}
+        context = {"token": token[0], "user": user}
     else:
-        context = {'token': None, 'user': user}
+        context = {"token": None, "user": user}
 
-    return render(request, 'profile.html', context)
-
+    return render(request, "profile.html", context)

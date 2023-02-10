@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('later42', '0002_url_archived'),
+        ("later42", "0002_url_archived"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='url',
-            name='content',
+            model_name="url",
+            name="content",
             field=models.TextField(blank=True, null=True),
         ),
     ]

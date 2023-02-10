@@ -10,4 +10,4 @@ def create(request):
         token.delete()
     token = Token.objects.create(user=request.user)
     token.save()
-    return redirect('profile')
+    return redirect("profile")
